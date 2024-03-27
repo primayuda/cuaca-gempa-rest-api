@@ -20,8 +20,8 @@ app.use('/quake', quakeRoute);
 
 app.get('/', (req, res) => {
   return res.status(200).send({
-    maintainer: 'Renova Muhamad Reza',
-    source: 'https://github.com/renomureza/cuaca-gempa-rest-api',
+    maintainer: 'Aprita Primayuda',
+    source: 'https://github.com/primayuda/cuaca-gempa-rest-api',
     endpoint: {
       quake: `${BASE_URL}/quake`,
       weather: {
