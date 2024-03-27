@@ -2,7 +2,7 @@ const { default: axios } = require('axios');
 // const refactJsonQuake = require('../utils/refactJsonQuake');
 // const responseCreator = require('../utils/responseCreator');
 
-const get = async (req, res) => {
+const getMarine = async (req, res) => {
   try {
     // const response = await axios.get(
     //   'https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json'
@@ -18,4 +18,4 @@ const get = async (req, res) => {
   }
 };
 
-module.exports = { get };
+module.exports = { getMarine };
