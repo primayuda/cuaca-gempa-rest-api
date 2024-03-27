@@ -1,6 +1,6 @@
 const { default: axios } = require('axios');
 // const refactJsonQuake = require('../utils/refactJsonQuake');
-// const responseCreator = require('../utils/responseCreator');
+const responseCreator = require('../utils/responseCreator');
 
 const getMarine = async (req, res) => {
   try {
