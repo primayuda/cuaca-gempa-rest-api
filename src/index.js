@@ -2,6 +2,7 @@ require('dotenv').config();
 const app = require('express')();
 const weatherRoute = require('./routes/weather');
 const quakeRoute = require('./routes/quake');
+const marineRoute = require('./routes/marine');
 const responseCreator = require('./utils/responseCreator');
 const cors = require('cors');
 
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
 
 app.use('/weather', weatherRoute);
 app.use('/quake', quakeRoute);
+app.use('/marine', marineRoute);
 
 app.get('/', (req, res) => {
   return res.status(200).send({
@@ -32,6 +34,7 @@ app.get('/', (req, res) => {
           example: `${BASE_URL}/weather/jawa-barat/bandung`,
         },
       },
+      marine: `${BASE_URL}/marine`
     },
   });
 });
