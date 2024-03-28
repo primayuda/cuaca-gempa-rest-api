@@ -23,7 +23,7 @@ app.use('/marine', marineRoute);
 app.get('/', (req, res) => {
   return res.status(200).send({
     maintainer: 'Aprita Primayuda',
-    source: 'https://github.com/primayuda/cuaca-gempa-rest-api',
+    company: 'Starcore Analytics',
     endpoint: {
       quake: `${BASE_URL}/quake`,
       weather: {
