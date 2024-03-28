@@ -1,8 +1,4 @@
-# REST API Cuaca & Gempa Terkini
-
-> 🚨**Catatan**
-> 
-> Tautan ini https://cuaca-gempa-rest-api.vercel.app/ sewaktu-waktu bisa dimatikan karena batasan Vercel, silakan deploy menggunakan akun Vercel sendiri. 
+# REST API data Cuaca, Kondisi Laut, Harga Batubara (ICI-4) dan alert Geopolitik
 
 REST API prakiraan cuaca, suhu udara, kelembapan udara, kecepatan angin, dan arah angin untuk kota-kota besar di **34 provinsi** di Indonesia dalam waktu **3 harian** dan gempa terbaru dengan format JSON yang lebih ramah.
 
@@ -10,7 +6,7 @@ Sumber: [Data Terbuka BMKG](https://data.bmkg.go.id/).
 
 ## DEMO
 
-[https://cuaca-gempa-rest-api-pied.vercel.app](https://cuaca-gempa-rest-api-pied.vercel.app/)
+[https://starcore-data-rest-api.vercel.app](https://starcore-data-rest-api.vercel.app/)
 
 ## Command
 
