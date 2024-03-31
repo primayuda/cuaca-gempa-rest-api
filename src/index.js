@@ -3,6 +3,7 @@ const app = require('express')();
 const weatherRoute = require('./routes/weather');
 const quakeRoute = require('./routes/quake');
 const marineRoute = require('./routes/marine');
+const coalRoute = require('./routes/coal');
 const responseCreator = require('./utils/responseCreator');
 const cors = require('cors');
 
@@ -19,6 +20,7 @@ app.use((req, res, next) => {
 app.use('/weather', weatherRoute);
 app.use('/quake', quakeRoute);
 app.use('/marine', marineRoute);
+app.use('/coal', coalRoute)
 
 app.get('/', (req, res) => {
   return res.status(200).send({
@@ -34,7 +36,8 @@ app.get('/', (req, res) => {
           example: `${BASE_URL}/weather/jawa-barat/bandung`,
         },
       },
-      marine: `${BASE_URL}/marine`
+      marine: `${BASE_URL}/marine`,
+      coal: `${BASE_URL}/coal`,
     },
   });
 });
