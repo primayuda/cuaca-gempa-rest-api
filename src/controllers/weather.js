@@ -4,61 +4,598 @@ const toUpperFirstLetterWords = require('../utils/toUpperFirstLetterWords');
 const refactJsonWeather = require('../utils/refactJsonWeather');
 const responseCreator = require('../utils/responseCreator');
 
-const getByProvince = async (req, res) => {
-  const { province } = req.params;
+const mockupResponse = {
+  "latitude": -3.875,
+  "longitude": 115.375,
+  "generationtime_ms": 0.06103515625,
+  "utc_offset_seconds": 25200,
+  "timezone": "Asia/Bangkok",
+  "timezone_abbreviation": "+07",
+  "elevation": 0.0,
+  "hourly_units": {
+    "time": "iso8601",
+    "temperature_2m": "°C",
+    "rain": "mm"
+  },
+  "hourly": {
+    "time": [
+      "2024-06-09T00:00",
+      "2024-06-09T01:00",
+      "2024-06-09T02:00",
+      "2024-06-09T03:00",
+      "2024-06-09T04:00",
+      "2024-06-09T05:00",
+      "2024-06-09T06:00",
+      "2024-06-09T07:00",
+      "2024-06-09T08:00",
+      "2024-06-09T09:00",
+      "2024-06-09T10:00",
+      "2024-06-09T11:00",
+      "2024-06-09T12:00",
+      "2024-06-09T13:00",
+      "2024-06-09T14:00",
+      "2024-06-09T15:00",
+      "2024-06-09T16:00",
+      "2024-06-09T17:00",
+      "2024-06-09T18:00",
+      "2024-06-09T19:00",
+      "2024-06-09T20:00",
+      "2024-06-09T21:00",
+      "2024-06-09T22:00",
+      "2024-06-09T23:00",
+      "2024-06-10T00:00",
+      "2024-06-10T01:00",
+      "2024-06-10T02:00",
+      "2024-06-10T03:00",
+      "2024-06-10T04:00",
+      "2024-06-10T05:00",
+      "2024-06-10T06:00",
+      "2024-06-10T07:00",
+      "2024-06-10T08:00",
+      "2024-06-10T09:00",
+      "2024-06-10T10:00",
+      "2024-06-10T11:00",
+      "2024-06-10T12:00",
+      "2024-06-10T13:00",
+      "2024-06-10T14:00",
+      "2024-06-10T15:00",
+      "2024-06-10T16:00",
+      "2024-06-10T17:00",
+      "2024-06-10T18:00",
+      "2024-06-10T19:00",
+      "2024-06-10T20:00",
+      "2024-06-10T21:00",
+      "2024-06-10T22:00",
+      "2024-06-10T23:00",
+      "2024-06-11T00:00",
+      "2024-06-11T01:00",
+      "2024-06-11T02:00",
+      "2024-06-11T03:00",
+      "2024-06-11T04:00",
+      "2024-06-11T05:00",
+      "2024-06-11T06:00",
+      "2024-06-11T07:00",
+      "2024-06-11T08:00",
+      "2024-06-11T09:00",
+      "2024-06-11T10:00",
+      "2024-06-11T11:00",
+      "2024-06-11T12:00",
+      "2024-06-11T13:00",
+      "2024-06-11T14:00",
+      "2024-06-11T15:00",
+      "2024-06-11T16:00",
+      "2024-06-11T17:00",
+      "2024-06-11T18:00",
+      "2024-06-11T19:00",
+      "2024-06-11T20:00",
+      "2024-06-11T21:00",
+      "2024-06-11T22:00",
+      "2024-06-11T23:00",
+      "2024-06-12T00:00",
+      "2024-06-12T01:00",
+      "2024-06-12T02:00",
+      "2024-06-12T03:00",
+      "2024-06-12T04:00",
+      "2024-06-12T05:00",
+      "2024-06-12T06:00",
+      "2024-06-12T07:00",
+      "2024-06-12T08:00",
+      "2024-06-12T09:00",
+      "2024-06-12T10:00",
+      "2024-06-12T11:00",
+      "2024-06-12T12:00",
+      "2024-06-12T13:00",
+      "2024-06-12T14:00",
+      "2024-06-12T15:00",
+      "2024-06-12T16:00",
+      "2024-06-12T17:00",
+      "2024-06-12T18:00",
+      "2024-06-12T19:00",
+      "2024-06-12T20:00",
+      "2024-06-12T21:00",
+      "2024-06-12T22:00",
+      "2024-06-12T23:00",
+      "2024-06-13T00:00",
+      "2024-06-13T01:00",
+      "2024-06-13T02:00",
+      "2024-06-13T03:00",
+      "2024-06-13T04:00",
+      "2024-06-13T05:00",
+      "2024-06-13T06:00",
+      "2024-06-13T07:00",
+      "2024-06-13T08:00",
+      "2024-06-13T09:00",
+      "2024-06-13T10:00",
+      "2024-06-13T11:00",
+      "2024-06-13T12:00",
+      "2024-06-13T13:00",
+      "2024-06-13T14:00",
+      "2024-06-13T15:00",
+      "2024-06-13T16:00",
+      "2024-06-13T17:00",
+      "2024-06-13T18:00",
+      "2024-06-13T19:00",
+      "2024-06-13T20:00",
+      "2024-06-13T21:00",
+      "2024-06-13T22:00",
+      "2024-06-13T23:00",
+      "2024-06-14T00:00",
+      "2024-06-14T01:00",
+      "2024-06-14T02:00",
+      "2024-06-14T03:00",
+      "2024-06-14T04:00",
+      "2024-06-14T05:00",
+      "2024-06-14T06:00",
+      "2024-06-14T07:00",
+      "2024-06-14T08:00",
+      "2024-06-14T09:00",
+      "2024-06-14T10:00",
+      "2024-06-14T11:00",
+      "2024-06-14T12:00",
+      "2024-06-14T13:00",
+      "2024-06-14T14:00",
+      "2024-06-14T15:00",
+      "2024-06-14T16:00",
+      "2024-06-14T17:00",
+      "2024-06-14T18:00",
+      "2024-06-14T19:00",
+      "2024-06-14T20:00",
+      "2024-06-14T21:00",
+      "2024-06-14T22:00",
+      "2024-06-14T23:00",
+      "2024-06-15T00:00",
+      "2024-06-15T01:00",
+      "2024-06-15T02:00",
+      "2024-06-15T03:00",
+      "2024-06-15T04:00",
+      "2024-06-15T05:00",
+      "2024-06-15T06:00",
+      "2024-06-15T07:00",
+      "2024-06-15T08:00",
+      "2024-06-15T09:00",
+      "2024-06-15T10:00",
+      "2024-06-15T11:00",
+      "2024-06-15T12:00",
+      "2024-06-15T13:00",
+      "2024-06-15T14:00",
+      "2024-06-15T15:00",
+      "2024-06-15T16:00",
+      "2024-06-15T17:00",
+      "2024-06-15T18:00",
+      "2024-06-15T19:00",
+      "2024-06-15T20:00",
+      "2024-06-15T21:00",
+      "2024-06-15T22:00",
+      "2024-06-15T23:00"
+    ],
+    "temperature_2m": [
+      26.0,
+      25.8,
+      25.7,
+      25.5,
+      25.4,
+      25.3,
+      25.5,
+      26.4,
+      27.7,
+      28.6,
+      29.4,
+      29.8,
+      29.8,
+      29.7,
+      29.5,
+      29.3,
+      28.9,
+      28.3,
+      27.8,
+      27.5,
+      27.4,
+      27.3,
+      27.2,
+      27.2,
+      27.1,
+      26.9,
+      26.8,
+      26.5,
+      26.5,
+      26.4,
+      26.5,
+      27.0,
+      27.9,
+      28.6,
+      29.0,
+      29.0,
+      29.4,
+      29.5,
+      29.3,
+      29.1,
+      28.7,
+      28.2,
+      27.5,
+      27.2,
+      27.0,
+      26.9,
+      26.7,
+      26.6,
+      26.5,
+      26.4,
+      26.3,
+      26.3,
+      26.1,
+      25.9,
+      26.0,
+      26.7,
+      27.4,
+      28.3,
+      29.0,
+      29.6,
+      29.8,
+      29.8,
+      29.8,
+      29.6,
+      29.2,
+      28.5,
+      27.8,
+      27.5,
+      27.2,
+      27.0,
+      26.8,
+      26.7,
+      26.5,
+      26.4,
+      26.2,
+      26.1,
+      26.0,
+      26.2,
+      26.4,
+      26.8,
+      26.8,
+      27.2,
+      28.0,
+      28.6,
+      28.9,
+      28.9,
+      28.7,
+      28.4,
+      28.0,
+      27.7,
+      27.3,
+      27.0,
+      26.8,
+      26.7,
+      26.6,
+      26.4,
+      26.3,
+      26.2,
+      26.0,
+      25.8,
+      25.7,
+      25.8,
+      26.0,
+      26.4,
+      27.1,
+      28.0,
+      28.8,
+      29.2,
+      29.4,
+      29.4,
+      29.2,
+      28.7,
+      28.3,
+      27.9,
+      27.5,
+      27.2,
+      27.0,
+      26.8,
+      26.6,
+      26.3,
+      26.1,
+      25.9,
+      25.7,
+      25.6,
+      25.5,
+      25.7,
+      25.9,
+      26.3,
+      27.0,
+      27.8,
+      28.4,
+      28.5,
+      28.4,
+      28.2,
+      28.1,
+      28.0,
+      27.9,
+      27.6,
+      27.3,
+      27.0,
+      26.8,
+      26.6,
+      26.4,
+      26.3,
+      26.2,
+      26.1,
+      25.9,
+      25.7,
+      25.6,
+      25.7,
+      25.9,
+      26.3,
+      27.0,
+      27.7,
+      28.4,
+      28.8,
+      29.1,
+      29.1,
+      28.9,
+      28.5,
+      28.1,
+      27.6,
+      27.1,
+      26.8,
+      26.7,
+      26.8,
+      26.8,
+      26.8
+    ],
+    "rain": [
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00,
+      0.00
+    ]
+  }
+}
 
+// const getByProvince = async (req, res) => {
+//   const { province } = req.params;
+
+//   try {
+//     const result = await axios.get(
+//       `https://data.bmkg.go.id/DataMKG/MEWS/DigitalForecast/DigitalForecast-${toUpperFirstLetterWords(
+//         province
+//       )}.xml`
+//     );
+
+//     const weathers = xmlJs.xml2js(result.data, { compact: true, spaces: 2 });
+
+//     const refactoredJsonWeathers = refactJsonWeather(weathers);
+
+//     return res
+//       .status(200)
+//       .send(responseCreator({ data: refactoredJsonWeathers }));
+//   } catch (error) {
+//     if (error.response.status === 404) {
+//       return res.status(404).send(responseCreator({ message: 'Not found' }));
+//     }
+
+//     return res
+//       .status(500)
+//       .send(responseCreator({ message: 'Something went wrong' }));
+//   }
+// };
+
+// const getByCity = async (req, res) => {
+//   const { province, city } = req.params;
+
+//   try {
+//     const result = await axios.get(
+//       `https://data.bmkg.go.id/DataMKG/MEWS/DigitalForecast/DigitalForecast-${toUpperFirstLetterWords(
+//         province
+//       )}.xml`
+//     );
+
+//     const weathers = xmlJs.xml2js(result.data, { compact: true, spaces: 2 });
+//     const refactoredJsonWeathers = refactJsonWeather(weathers);
+
+//     const weatherByCity = refactoredJsonWeathers.areas.find(
+//       (area) => area.description == toUpperFirstLetterWords(city, '-', ' ')
+//     );
+
+//     if (!weatherByCity) {
+//       return res.status(404).send(responseCreator({ message: 'Not found' }));
+//     }
+
+//     return res.status(200).send(responseCreator({ data: weatherByCity }));
+//   } catch (error) {
+//     return res
+//       .status(500)
+//       .send(responseCreator({ data: 'Something went wrong' }));
+//   }
+// };
+
+const getWeather = async (req, res) => {
   try {
-    const result = await axios.get(
-      `https://data.bmkg.go.id/DataMKG/MEWS/DigitalForecast/DigitalForecast-${toUpperFirstLetterWords(
-        province
-      )}.xml`
-    );
-
-    const weathers = xmlJs.xml2js(result.data, { compact: true, spaces: 2 });
-
-    const refactoredJsonWeathers = refactJsonWeather(weathers);
-
-    return res
-      .status(200)
-      .send(responseCreator({ data: refactoredJsonWeathers }));
+    return res.status(200).send(responseCreator({ data: mockupResponse }));
   } catch (error) {
-    if (error.response.status === 404) {
-      return res.status(404).send(responseCreator({ message: 'Not found' }));
-    }
-
     return res
       .status(500)
       .send(responseCreator({ message: 'Something went wrong' }));
   }
 };
 
-const getByCity = async (req, res) => {
-  const { province, city } = req.params;
-
-  try {
-    const result = await axios.get(
-      `https://data.bmkg.go.id/DataMKG/MEWS/DigitalForecast/DigitalForecast-${toUpperFirstLetterWords(
-        province
-      )}.xml`
-    );
-
-    const weathers = xmlJs.xml2js(result.data, { compact: true, spaces: 2 });
-    const refactoredJsonWeathers = refactJsonWeather(weathers);
-
-    const weatherByCity = refactoredJsonWeathers.areas.find(
-      (area) => area.description == toUpperFirstLetterWords(city, '-', ' ')
-    );
-
-    if (!weatherByCity) {
-      return res.status(404).send(responseCreator({ message: 'Not found' }));
-    }
-
-    return res.status(200).send(responseCreator({ data: weatherByCity }));
-  } catch (error) {
-    return res
-      .status(500)
-      .send(responseCreator({ data: 'Something went wrong' }));
-  }
-};
-
-module.exports = { getByProvince, getByCity };
+module.exports = { getWeather };
