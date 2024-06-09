@@ -589,8 +589,11 @@ const mockupResponse = {
 // };
 
 const getWeather = async (req, res) => {
+  const lat = req.query.lat;
+  const lng = req.query.lng;
+  // console.log(lat, lng);
   try {
-    return res.status(200).send(responseCreator({ data: mockupResponse }));
+    return res.status(200).send(responseCreator({ message: {lat, lng}, data: mockupResponse }));
   } catch (error) {
     return res
       .status(500)
