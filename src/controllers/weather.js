@@ -592,12 +592,21 @@ const getWeather = async (req, res) => {
   const lat = req.query.lat;
   const lng = req.query.lng;
   // console.log(lat, lng);
+  if (!lat || !lng) return res
+    .status(500)
+    .send(responseCreator({message: "Need lat/long parameters"}));
+  
   try {
-    return res.status(200).send(responseCreator({ message: {lat, lng}, data: mockupResponse }));
+    const result = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=weather_code,temperature_2m_max,temperature_2m_min,rain_sum,wind_speed_10m_max&timezone=Asia%2FBangkok`
+    );
+    const data = await result.json()
+    // console.log(data);
+    return res.status(200).send(responseCreator({ data }));
   } catch (error) {
     return res
       .status(500)
-      .send(responseCreator({ message: 'Something went wrong' }));
+      .send(responseCreator({ message: error }));
   }
 };
 
