@@ -16,8 +16,8 @@ const getMarine = async (req, res) => {
     .status(500)
     .send(responseCreator({message: "Need lat/long parameters"}));
   
-  console.log(lat, lng);
-  console.log(apiKey);
+  // console.log(lat, lng);
+  // console.log(apiKey);
   try {
     const response = await fetch(`https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${params}`, {
       headers: {
